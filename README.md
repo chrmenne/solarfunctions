@@ -30,7 +30,7 @@ First, we calculate the Julian Century Number, which is the time unit used in al
 double julianCenturyNumber = calculateJulianCenturyNumber(time_utc); // = 0.24536619
 ```
 
-### The Sun's Position (Corrected Elevation And Azimuth)</h3>
+### The Sun's Position (Corrected Elevation, Azimuth)</h3>
 Let's say we have a telescope or moveable solar panel and want to know where to point it at this moment, so we need to calculate the altitude ("elevation") and direction ("azimuth") the Sun. Calculating the elevation for a specific time and location requires
 - the hour angle for this time (the angular difference between the Sun's current position and the highest point at noon, on a circle around the ecliptic),</li>
 - the declination (the angle between Earth's equator and the line between Earth and Sun), and</li>
