@@ -13,6 +13,10 @@ I refrained from adding convenience functions (so far). Everything could always 
 Let's assume a location in the city of **Nuremberg, Germany, latitude 49.734839° N, longitude 11.156555° E**. The date is **July 15th 2024, 14:00 o'clock Central European Summer Time (CEST, daylight savings in effect)**, which resembles 12:00 UTC. The Unix timestamp for this datetime is **1721044800 (UTC)**, as the timezone offset is -1 hour (3600 seconds) for CET and another -1 hour (3600 seconds) for DST. Calculation: `1721052000 (local timestamp) - 3600 (timezone offset) - 3600 (DST) = 1721044800`
 
 ```c
+#include <solarfunctions.h>
+
+...
+
 // data we do know
 double location_latitude  = 49.734839;
 double location_longitude = 11.156555;
