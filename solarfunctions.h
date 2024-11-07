@@ -16,8 +16,8 @@
 */
 
 
-#ifndef SOLAR_FUNCTIONS_H
-#define SOLAR_FUNCTIONS_H
+#ifndef SOLARFUNCTIONS_H
+#define SOLARFUNCTIONS_H
 
 #define VERSION 1.0
 
@@ -514,4 +514,4 @@ double calculateSunRadiusVector(double eccentricity, double trueAnomaly);
  */
 double calculateApproximateAtmosphericRefraction(double elevation);
 
-#endif // SOLAR_FUNCTIONS_H
+#endif // SOLARFUNCTIONS_H
