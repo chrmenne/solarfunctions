@@ -20,7 +20,7 @@ The following values can be computed using this library:
   - local solar noon
   - time of sunrise and sunset
   - duration of daylight
--  Solar position:
+- Solar position:
   - true and corrected elevation
   - azimuth
   - zenith angle
