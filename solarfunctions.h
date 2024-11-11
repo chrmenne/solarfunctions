@@ -199,6 +199,20 @@ double calculateOmega(double julianCenturyNumber);
  */
 double calculateNutation(double julianCenturyNumber);
 
+/**
+ * @brief The Sun's radius vector, the distance between the Sun and Earth in astronomical units (AU),
+ *        for a given eccentricity and true anomaly.
+ *
+ * The radius vector calculation accounts for Earth's orbital eccentricity and the true anomaly,
+ * representing the Sun-Earth distance as it varies with orbital position. Useful in determining
+ * the apparent size and intensity of sunlight.
+ *
+ * @param eccentricity Earth's orbital eccentricity.
+ * @param trueAnomaly  The true anomaly of the Sun in degrees, indicating its position along its orbit.
+ * @return Sun-Earth radius vector in astronomical units (AU).
+ */
+double calculateSunRadiusVector(double eccentricity, double trueAnomaly);
+
 // SOLAR ANGLES AND ANOMALY
 
 /**
@@ -340,6 +354,30 @@ double calculateLocalSolarTime(long timedouble_utc, double equationOfTime, doubl
  */
 double calculateLocalSolarNoon(double timezone_offset, double equationOfTime, double longitude);
 
+/**
+ * @brief The time of sunrise or sunset based on the solar noon and the hour angle.
+ *
+ * This function adds or subtracts the hour angle from solar noon to yield the time of sunrise 
+ * or sunset in hours.
+ *
+ * @param solarNoon    Time of solar noon in hours.
+ * @param hourAngle_h0 Hour angle in hours, calculated for either sunrise or sunset.
+ * @return Time of sunrise or sunset in hours (decimal format). 
+ *         INVALID_VALUE is returned for polar days/nights with no sunset/sunrise.
+ */
+double calculateSunriseSunsetTime(double solarNoon, double hourAngle_h0);
+
+/**
+ * @brief The total duration of daylight in minutes, based on the hour angle for sunrise or sunset.
+ *
+ * This function doubles the sunrise hour angle and converts it to minutes to give the total duration of 
+ * daylight in a day.
+ *
+ * @param sunriseSunsetHourAngle The hour angle for sunrise (or sunset, either will work as the day is "symmetric") in degrees.
+ * @return Total duration of daylight in minutes.
+ */
+double calculateDaylightMinutes(double sunriseSunsetHourAngle);
+
 // SOLAR POSITION
 
 /**
@@ -389,30 +427,6 @@ double calculateSunriseHourAngle(double declination, double latitude);
  * @return Hour angle for sunset (or sunrise) in degrees.
  */
 double calculateSunsetHourAngle(double declination, double latitude);
-
-/**
- * @brief The time of sunrise or sunset based on the solar noon and the hour angle.
- *
- * This function adds or subtracts the hour angle from solar noon to yield the time of sunrise 
- * or sunset in hours.
- *
- * @param solarNoon    Time of solar noon in hours.
- * @param hourAngle_h0 Hour angle in hours, calculated for either sunrise or sunset.
- * @return Time of sunrise or sunset in hours (decimal format). 
- *         INVALID_VALUE is returned for polar days/nights with no sunset/sunrise.
- */
-double calculateSunriseSunsetTime(double solarNoon, double hourAngle_h0);
-
-/**
- * @brief The total duration of daylight in minutes, based on the hour angle for sunrise or sunset.
- *
- * This function doubles the sunrise hour angle and converts it to minutes to give the total duration of 
- * daylight in a day.
- *
- * @param sunriseSunsetHourAngle The hour angle for sunrise (or sunset, either will work as the day is "symmetric") in degrees.
- * @return Total duration of daylight in minutes.
- */
-double calculateDaylightMinutes(double sunriseSunsetHourAngle);
 
 /**
  * @brief The solar elevation angle, the angle between the Sun and the observer’s horizon.
@@ -488,20 +502,6 @@ double calculateSolarZenithAngle(double elevation);
  * @return Sun-Earth radius vector in astronomical units (AU).
  */
 double calculateSunRadiusVector(double julianCenturyNumber);
-
-/**
- * @brief The Sun's radius vector, the distance between the Sun and Earth in astronomical units (AU),
- *        for a given eccentricity and true anomaly.
- *
- * The radius vector calculation accounts for Earth's orbital eccentricity and the true anomaly,
- * representing the Sun-Earth distance as it varies with orbital position. Useful in determining
- * the apparent size and intensity of sunlight.
- *
- * @param eccentricity Earth's orbital eccentricity.
- * @param trueAnomaly  The true anomaly of the Sun in degrees, indicating its position along its orbit.
- * @return Sun-Earth radius vector in astronomical units (AU).
- */
-double calculateSunRadiusVector(double eccentricity, double trueAnomaly);
 
 /**
  * @brief The approximate atmospheric refraction correction, which adjusts the Sun's apparent position near the horizon.
