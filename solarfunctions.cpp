@@ -98,7 +98,7 @@ double normalizeRadians2Pi(double angle) {
 
 // Convert a Unix timestamp to Julian Date.
 double calculateJulianDate(long timestamp_utc) {
-  return timestamp_utc / SECONDS_PER_DAY + UNIX_EPOCH_JD;
+  return (double) timestamp_utc / (double) SECONDS_PER_DAY + UNIX_EPOCH_JD;
 }
 
 // Calculate Julian Century from a given UTC time, with 2000-01-01 noon as starting point.
@@ -211,7 +211,7 @@ double calculateEquationOfTime(double julianCenturyNumber) {
 // Convert UTC time to local solar time, considering longitude and equation of time.
 double calculateLocalSolarTime(long timestamp_utc, double equationOfTime, double longitude) {
   long secondsOfTheDay = timestamp_utc % (int) SECONDS_PER_DAY; // type conversion necessary for modulo operation
-  double totalMinutes_utc = secondsOfTheDay / SECONDS_PER_MINUTE;
+  double totalMinutes_utc = secondsOfTheDay / (double) SECONDS_PER_MINUTE;
   double timeOffset = longitude * MINUTES_PER_DEGREE_LONGITUDE;
   double localSolarTime = totalMinutes_utc + timeOffset + equationOfTime;
   // normalize to [0, 1440) if the calculated time is negative or exceeds 24 hours (1440 minutes).
