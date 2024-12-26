@@ -403,16 +403,18 @@ double calculateHourAngle(double localSolarTime);
  * This function computes the hour angle, h0, at sunrise (in degrees) for a given latitude and 
  * declination. The hour angle represents the time it takes for the sun to move across the sky
  * from the horizon at sunrise to solar noon, where it reaches its highest point.
+ * 
+ * The hour angle at sunrise is always negative.
  *
  * @param declination  The solar declination in degrees, representing the angle between the sun's 
  *                     rays and the Earth's equatorial plane.
  * @param latitude 	   The observer's latitude in degrees.
- * @return The hour angle at sunrise in degrees. This value is constrained within [-180°, 180°] 
+ * @return The hour angle at sunrise in degrees. This value is constrained within [-180°, 0°] 
  *         to handle edge cases like polar days and polar nights.
  *
  * @note The returned angle will be positive for standard day-night cycles. In polar regions,
  *       where the sun does not set or rise for extended periods, the hour angle is capped at 
- *       -180° or 180° to indicate continuous daylight or darkness.
+ *       -180° or 0° to indicate continuous daylight or darkness.
  */
 double calculateSunriseHourAngle(double declination, double latitude);
 
