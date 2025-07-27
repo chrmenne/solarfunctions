@@ -240,12 +240,11 @@ double calculateSunriseHourAngle(double declination, double latitude) {
   double declination_rad = degToRad(declination);
   double cosH0 = (-SOLAR_ANGULAR_DIAMETER_RAD - sin(latitude_rad) * sin(declination_rad)) / (cos(latitude_rad) * cos(declination_rad));
   double h0;
-  // FIXME: 0° for polar night, -180 for polar day?
   // limit h0 to -180 or 0 degrees in cases the sun never sets or rises
-  if (cosH0 < -1) {
-    h0 = -180;  // polar night
-  } else if (cosH0 > 1) {
-    h0 = 0;  // polar day
+  if (cosH0 <= -1.0) {
+    h0 = -180;  // polar day
+  } else if (cosH0 >= 1.0) {
+    h0 = 0;  // polar night
   } else {
     h0 = -radToDeg(acos(cosH0)); // sunrise hour angles are always negative (eastward).
   }
@@ -260,8 +259,7 @@ double calculateSunsetHourAngle(double declination, double latitude) {
 // The time of sunrise or sunset in hours based on solar noon and the hour angle at sunrise/sunset.
 double calculateSunriseSunsetTime(double solarNoon, double hourAngle_h0) {
   double time;
-  hourAngle_h0 = abs(hourAngle_h0);
-  if (hourAngle_h0 >= 180 || hourAngle_h0 == 0) {
+  if (abs(hourAngle_h0) >= 180 || hourAngle_h0 == 0) {
     time = INVALID_VALUE;
   } else {
     time = solarNoon + (hourAngle_h0 * MINUTES_PER_DEGREE_LONGITUDE / MINUTES_PER_DAY);
@@ -272,9 +270,10 @@ double calculateSunriseSunsetTime(double solarNoon, double hourAngle_h0) {
 // The duration of daylight in hours based on the hour angle at sunrise or sunset.
 double calculateDaylightMinutes(double sunriseSunsetHourAngle) {
   double daylightMinutes;
-  if (sunriseSunsetHourAngle >= 180) {
+  double angle = abs(sunriseSunsetHourAngle);
+  if (angle >= 180) {
     daylightMinutes = MINUTES_PER_DAY;  // polar day
-  } else if (sunriseSunsetHourAngle <= -180) {
+  } else if (angle <= 0.0) {
     daylightMinutes = 0;  // polar night
   } else {
     daylightMinutes = 2 * MINUTES_PER_HOUR * abs(sunriseSunsetHourAngle) / DEGREES_LONGITUDE_PER_HOUR;
