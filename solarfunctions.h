@@ -359,7 +359,7 @@ double calculateLocalSolarNoon(double timezone_offset, double equationOfTime, do
  * or sunset (returned as a fraction of a day/24 hours).
  *
  * @param solarNoon    Time of solar noon as a fraction of day.
- * @param hourAngle_h0 Hour angle in hours, calculated for either sunrise or sunset.
+ * @param hourAngle_h0 Hour angle in degrees, calculated for either sunrise or sunset.
  * @return Time of sunrise or sunset in hours (decimal format). 
  *         INVALID_VALUE is returned for polar days/nights with no sunset/sunrise.
  */
@@ -476,7 +476,7 @@ double calculateCorrectedSolarElevation(double elevation, double refraction);
  * @param elevation   Solar elevation angle in degrees.
  * @param latitude    Observer’s latitude in degrees (north positive, south negative).
  * @return Solar azimuth angle in degrees, measured clockwise from true north.
-           Returns 180 for latitute 90° (North Pole) and 0 for latitude -90° (South Pole), if the sun is visible. 
+           Returns 180 for latitude 90° (North Pole) and 0 for latitude -90° (South Pole), if the sun is visible. 
  */
 double calculateSolarAzimuth(double hourAngle, double declination, double elevation, double latitude);
 
