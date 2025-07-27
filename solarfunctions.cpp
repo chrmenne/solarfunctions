@@ -31,8 +31,8 @@ constexpr double MINUTES_PER_HOUR = 60.0d;
 constexpr double SECONDS_PER_MINUTE = 60.0d;
 constexpr double MINUTES_PER_DEGREE_LONGITUDE = 4.0d; // 1 degree of Earth rotation per 4 Minutes
 constexpr double DEGREES_LONGITUDE_PER_HOUR = 15.0d; // 15 degrees of Earth rotation per hour
-constexpr double UNIX_EPOCH_JD = 2440587.5d; // 2020-01-01 12:00
-constexpr double Y2K_JULIAN_DATE = 2451545.0d; // 2020-01-01 12:00
+constexpr double UNIX_EPOCH_JD = 2440587.5d; // 2000-01-01 12:00
+constexpr double Y2K_JULIAN_DATE = 2451545.0d; // 2000-01-01 12:00
 constexpr double SOLAR_ANOMALY_AT_EPOCH = 357.5291092d;
 constexpr double SOLAR_ANOMALY_RATE = 35999.05029d;
 constexpr double SOLAR_ANOMALY_CORRECTION = -0.0001537d;
@@ -253,8 +253,8 @@ double calculateSunriseHourAngle(double declination, double latitude) {
 }
 
 // The hour angle at sunset based on declination and latitude, returning the angle in degrees.
-double calculateSunsetHourAngle(double declination, double latitute) {
-  return -calculateSunriseHourAngle(declination, latitute);
+double calculateSunsetHourAngle(double declination, double latitude) {
+  return -calculateSunriseHourAngle(declination, latitude);
 }
 
 // The time of sunrise or sunset in hours based on solar noon and the hour angle at sunrise/sunset.
@@ -273,9 +273,9 @@ double calculateSunriseSunsetTime(double solarNoon, double hourAngle_h0) {
 double calculateDaylightMinutes(double sunriseSunsetHourAngle) {
   double daylightMinutes;
   if (sunriseSunsetHourAngle >= 180) {
-    daylightMinutes = 0;  // polar day
+    daylightMinutes = MINUTES_PER_DAY;  // polar day
   } else if (sunriseSunsetHourAngle <= -180) {
-    daylightMinutes = MINUTES_PER_DAY;  // polar night
+    daylightMinutes = 0;  // polar night
   } else {
     daylightMinutes = 2 * MINUTES_PER_HOUR * abs(sunriseSunsetHourAngle) / DEGREES_LONGITUDE_PER_HOUR;
   }

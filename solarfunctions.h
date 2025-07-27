@@ -328,7 +328,7 @@ double calculateEquationOfTime(double julianCenturyNumber);
  * location. This value is the solar hour angle, which relates to the Sun’s position in the sky. Basically, this 
  * is the time a sundial would show.
  *
- * @param timestamp_utc  The current time in UTC, expressed in hours (e.g., 13.5 for 13:30).
+ * @param timestamp_utc  The current time in UTC
  * @param equationOfTime The equation of time in minutes, accounting for the difference between solar time 
  *                       and standard time.
  * @param longitude      The observer's longitude in degrees (east is positive, west is negative).
@@ -348,7 +348,7 @@ double calculateLocalSolarTime(long timedouble_utc, double equationOfTime, doubl
  * @param timezone_offset Offset from UTC in hours, including any adjustments for daylight saving time (e.g., +2 for CEST in summer, +1 for CET in winter).
  *                        Positive offsets represent locations east of UTC (e.g., UTC+1 for Central Europe),
  *                        while negative offsets represent locations west of UTC (e.g., UTC-5 for Eastern Standard Time).
- * @return Local solar noon in hours (decimal format).
+ * @return Local solar noon as a fraction of a day/24 hours.
  */
 double calculateLocalSolarNoon(double timezone_offset, double equationOfTime, double longitude);
 
@@ -356,9 +356,9 @@ double calculateLocalSolarNoon(double timezone_offset, double equationOfTime, do
  * @brief The time of sunrise or sunset based on the solar noon and the hour angle.
  *
  * This function adds or subtracts the hour angle from solar noon to yield the time of sunrise 
- * or sunset in hours.
+ * or sunset (returned as a fraction of a day/24 hours).
  *
- * @param solarNoon    Time of solar noon in hours.
+ * @param solarNoon    Time of solar noon as a fraction of day.
  * @param hourAngle_h0 Hour angle in hours, calculated for either sunrise or sunset.
  * @return Time of sunrise or sunset in hours (decimal format). 
  *         INVALID_VALUE is returned for polar days/nights with no sunset/sunrise.
