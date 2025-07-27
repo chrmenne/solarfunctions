@@ -94,5 +94,5 @@ double lengthOfDay = calculateDaylightMinutes(sunriseHourAngle); // = 726.664230
 double sunsetHourAngle = calculateSunsetHourAngle(declination, location_latitude);  // = 119.03050254 degrees
 double localSolarNoon = calculateLocalSolarNoon(timezone_offset, equationOfTime, location_longitude); // 0.55655038 of a day --> 0.55655 * 24 = 13.3572 hours (13:21 local time)
 double sunriseTime = calculateSunriseSunsetTime(localSolarNoon, sunriseHourAngle); // = 0.22593435 of a day --> 0.22593 * 24 = 5.42232 hours (05:25:20 local time)
-double sunsetTime = calculateSunriseSunsetTime(localSolarNoon, sunsetHourAngle); // = 0.88745492 of a day --> 0.22593 * 24 = 21.2988 hours (21:17:56 local time)
+double sunsetTime = calculateSunriseSunsetTime(localSolarNoon, sunsetHourAngle); // = 0.88745492 of a day --> 0.88745 * 24 = 21.2988 hours (21:17:56 local time)
 ```
