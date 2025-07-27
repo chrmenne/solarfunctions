@@ -256,7 +256,7 @@ double calculateSunsetHourAngle(double declination, double latitude) {
   return -calculateSunriseHourAngle(declination, latitude);
 }
 
-// The time of sunrise or sunset in hours based on solar noon and the hour angle at sunrise/sunset.
+// The time of sunrise or sunset as a fraction of a day (24 hours) based on solar noon and the hour angle at sunrise/sunset.
 double calculateSunriseSunsetTime(double solarNoon, double hourAngle_h0) {
   double time;
   if (abs(hourAngle_h0) >= 180 || hourAngle_h0 == 0) {
@@ -267,7 +267,7 @@ double calculateSunriseSunsetTime(double solarNoon, double hourAngle_h0) {
   return time;
 }
 
-// The duration of daylight in hours based on the hour angle at sunrise or sunset.
+// The duration of daylight in minutes based on the hour angle at sunrise or sunset.
 double calculateDaylightMinutes(double sunriseSunsetHourAngle) {
   double daylightMinutes;
   double angle = abs(sunriseSunsetHourAngle);

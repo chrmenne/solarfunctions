@@ -6,7 +6,7 @@ The following values can be computed using this library:
   - eccentricity of orbit
   - mean and corrected obliquity of the ecliptic
   - longitude of the ascending lunar node (Omega)
-  - nutation of logitude
+  - nutation of longitude
   - radius vector (distance of the Sun)
 - solar angles and anomalies:
   - mean and true anomaly
