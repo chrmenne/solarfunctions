@@ -360,7 +360,7 @@ double calculateLocalSolarNoon(double timezone_offset, double equationOfTime, do
  *
  * @param solarNoon    Time of solar noon as a fraction of day.
  * @param hourAngle_h0 Hour angle in degrees, calculated for either sunrise or sunset.
- * @return Time of sunrise or sunset in hours (decimal format). 
+ * @return Time of sunrise or sunset as a fraction of a day (24 hours). 
  *         INVALID_VALUE is returned for polar days/nights with no sunset/sunrise.
  */
 double calculateSunriseSunsetTime(double solarNoon, double hourAngle_h0);
