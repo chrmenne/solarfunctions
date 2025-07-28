@@ -32,7 +32,7 @@ I wrote this library because I could only find libraries that either didn't comp
 
 The library has no dependencies (besides Arduino.h) and should be easy to use, although it can be a bit difficult for a novice (like me) to understand what is necessary to calculate what. In most cases though, the input required is simply the time (as Julian Century Number) and the location.
 
-All angular values are taken and returned in (normalized) degrees since that's what they are commonly stated in. "Normalized" means that angles like 705° are either delivered as 345° (normalized to 0°-360°) or -15° (normalized to +/- 180°), depending on the common usage of this value. The library inclues functions to convert and normalize degrees and radians values.
+All angular values are taken and returned in (normalized) degrees since that's what they are commonly stated in. "Normalized" means that angles like 705° are either delivered as 345° (normalized to 0°-360°) or -15° (normalized to +/- 180°), depending on the common usage of this value. The library inclueds functions to convert and normalize degrees and radians values.
 
 I refrained from adding convenience functions (so far). Everything could always be calculated by inserting timestamp and location and following some steps, so there is no technical reason I couldn't add a `calculateCorrectedSolarElevation(long timestamp, long latitude)` function which calculated the Julian Century Number, the declination, the hour angle and the elevation. But there would be many of them, they would clutter the library and also lead to repetitive calculation steps. On the other hand, for every parameter that a function needs, except location, time, and timezone offset, there's an easy-to-find `calculate...`-function that provides this parameter. So it should be simple enough to derive the necessary cascade of function calls, as the following examples will show.
 
@@ -57,7 +57,7 @@ First, we calculate the Julian Century Number, which is the time unit used in al
 double julianCenturyNumber = calculateJulianCenturyNumber(time_utc); // = 0.24536619
 ```
 
-### The Sun's Position (Corrected Elevation, Azimuth)</h3>
+### The Sun's Position (Corrected Elevation, Azimuth)
 Let's say we have a telescope or moveable solar panel and want to know where to point it at this moment, so we need to calculate the altitude ("elevation") and direction ("azimuth") the Sun. Calculating the elevation for a specific time and location requires
 - the hour angle for this time (the angular difference between the Sun's current position and the highest point at noon, on a circle around the ecliptic),</li>
 - the declination (the angle between Earth's equator and the line between Earth and Sun), and</li>
@@ -80,7 +80,7 @@ double azimuth = calculateSolarAzimuth(hourAngle, declination, elevation, locati
 That's it.
 
 ### Daylight Information (Sunrise, Sunset, Daylight)
-Now let's assume we want to plan outdoor activities. We would like to know the the duration of daylight on that day as well as the time of sunrise and sunset.
+Now let's assume we want to plan outdoor activities. We would like to know the duration of daylight on that day as well as the time of sunrise and sunset.
 
 The daylight duration needs the hour angle of sunrise/sunset. Since the horizon is level, they're the same in value, just in different directions from the vertical "noon" line - negative angle for sunrise, positive angle for sunset. So it doesn't matter which one is used. The sunrise/sunset hour angle needs the declination to be calculated, we already have this value from calculating the elevation.
 
