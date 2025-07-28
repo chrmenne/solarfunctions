@@ -1,6 +1,6 @@
 /*
  * solarfunctions_test.ino
- * Test/example sketch for the solafunctions lib
+ * Test/example sketch for the solarfunctions lib
  * https://github.com/GitCoyote/solarfunctions
  *
  * Runs through a set of defined test-cases and prints deviations from the expected values.
