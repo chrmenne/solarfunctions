@@ -28,7 +28,7 @@ The following values can be computed using this library:
   - hour angle
   - hour angle at sunrise and sunset
 
-I wrote this library because I could only find libraries that either didn't compute what I needed or stated to be imprecise. It was tested with values provided by the [Solar Calculator](https://gml.noaa.gov/grad/solcalc/) by NOAA. It is as precise as the specifications for double values on the platform used will allow (32 or 64 bit). The difference in precision between 32 and 64 bit should be irrelevant for most practical purposes and usually amounts to around just a fraction of second of a degree.
+I wrote this library because I could only find libraries that either didn't compute what I needed or stated to be imprecise. It was tested with values provided by the [Solar Calculator](https://gml.noaa.gov/grad/solcalc/) by NOAA. It is as precise as the specifications for double values on the platform used will allow (32 or 64 bit). The difference in precision between 32 and 64 bit should be irrelevant for most practical purposes and usually amounts to around just a fraction of a second of a degree.
 
 The library has no dependencies (besides Arduino.h) and should be easy to use, although it can be a bit difficult for a novice (like me) to understand what is necessary to calculate what. In most cases though, the input required is simply the time (as Julian Century Number) and the location.
 
