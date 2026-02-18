@@ -19,7 +19,9 @@
 #ifndef SOLARFUNCTIONS_H
 #define SOLARFUNCTIONS_H
 
-#define INVALID_VALUE 999999999.999999d
+#include <stdint.h>
+
+#define INVALID_VALUE 999999999.999999
 
 // SUPPORT FUNCTIONS 
 
@@ -111,7 +113,7 @@ double normalizeRadians2Pi(double angle);
  * @return The Julian Date as a double-precision floating-point number, representing days 
  *         since January 1, 4713 BC at 12:00 UTC.
  */
-double calculateJulianDate(long timestamp_utc);
+double calculateJulianDate(int64_t timestamp_utc);
 
 /**
  * @brief The Julian Century from a UTC timestamp.
@@ -124,7 +126,7 @@ double calculateJulianDate(long timestamp_utc);
  * @return The Julian Century as a double-precision floating-point number, representing centuries 
  *         since January 1, 2000, at 12:00 UTC.
  */
-double calculateJulianCenturyNumber(long timestamp_utc);
+double calculateJulianCenturyNumber(int64_t timestamp_utc);
 
 // EARTH'S ORBIT AND MOVEMENT
 
@@ -334,7 +336,7 @@ double calculateEquationOfTime(double julianCenturyNumber);
  * @param longitude      The observer's longitude in degrees (east is positive, west is negative).
  * @return The local solar time in hours.
  */
-double calculateLocalSolarTime(long timedouble_utc, double equationOfTime, double longitude);
+double calculateLocalSolarTime(int64_t timestamp_utc, double equationOfTime, double longitude);
 
 /**
  * @brief The local solar noon, the time when the Sun reaches its highest point in the sky.

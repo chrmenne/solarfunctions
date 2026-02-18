@@ -34,7 +34,7 @@ The library has no dependencies (besides Arduino.h) and should be easy to use, a
 
 All angular values are taken and returned in (normalized) degrees since that's what they are commonly stated in. "Normalized" means that angles like 705째 are either delivered as 345째 (normalized to 0째-360째) or -15째 (normalized to +/- 180째), depending on the common usage of this value. The library inclueds functions to convert and normalize degrees and radians values.
 
-I refrained from adding convenience functions (so far). Everything could always be calculated by inserting timestamp and location and following some steps, so there is no technical reason I couldn't add a `calculateCorrectedSolarElevation(long timestamp, long latitude)` function which calculated the Julian Century Number, the declination, the hour angle and the elevation. But there would be many of them, they would clutter the library and also lead to repetitive calculation steps. On the other hand, for every parameter that a function needs, except location, time, and timezone offset, there's an easy-to-find `calculate...`-function that provides this parameter. So it should be simple enough to derive the necessary cascade of function calls, as the following examples will show.
+I refrained from adding convenience functions (so far). Everything could always be calculated by inserting timestamp and location and following some steps, so there is no technical reason I couldn't add a `calculateCorrectedSolarElevation(int64_t timestamp, double latitude)` function which calculated the Julian Century Number, the declination, the hour angle and the elevation. But there would be many of them, they would clutter the library and also lead to repetitive calculation steps. On the other hand, for every parameter that a function needs, except location, time, and timezone offset, there's an easy-to-find `calculate...`-function that provides this parameter. So it should be simple enough to derive the necessary cascade of function calls, as the following examples will show.
 
 ## Examples
 Let's assume a location in the city of **Nuremberg, Germany, latitude 49.734839째 N, longitude 11.156555째 E**. The date is **July 15th 2024, 14:00 o'clock Central European Summer Time (CEST, daylight savings in effect)**, which resembles 12:00 UTC. The Unix timestamp for this datetime is **1721044800 (UTC)**, as the timezone offset is -1 hour (3600 seconds) for CET and another -1 hour (3600 seconds) for DST. Calculation: `1721052000 (local timestamp) - 3600 (timezone offset) - 3600 (DST) = 1721044800`
@@ -47,7 +47,7 @@ Let's assume a location in the city of **Nuremberg, Germany, latitude 49.734839�
 // data we do know
 double location_latitude  = 49.734839;
 double location_longitude = 11.156555;
-long time_utc             = 1721044800;
+int64_t time_utc          = 1721044800;
 double timezone_offset    = -2; // the local time zone's offset from UTC. -1 hour for CET, -1 hour for DST.
 ```
 
