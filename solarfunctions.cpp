@@ -22,41 +22,43 @@
 #define VERSION 1.0
 
 // Various constants used in the formulae. All defined as double values as not to break arithmetic type conversion
-constexpr double MEAN_RADIUS_VECTOR_CORRECTION = 1.000001018d;
-constexpr double SOLAR_ANGULAR_DIAMETER_RAD = 0.0145380805d;
+constexpr double MEAN_RADIUS_VECTOR_CORRECTION = 1.000001018;
+constexpr double SOLAR_HORIZON_OFFSET_RAD = 0.0145380805;
 constexpr double SECONDS_PER_DAY = 86400.0;
 constexpr double MINUTES_PER_DAY = 1440.0;
-constexpr double SECONDS_PER_HOUR = 3600.0d;
-constexpr double MINUTES_PER_HOUR = 60.0d;
-constexpr double SECONDS_PER_MINUTE = 60.0d;
-constexpr double MINUTES_PER_DEGREE_LONGITUDE = 4.0d; // 1 degree of Earth rotation per 4 Minutes
-constexpr double DEGREES_LONGITUDE_PER_HOUR = 15.0d; // 15 degrees of Earth rotation per hour
-constexpr double UNIX_EPOCH_JD = 2440587.5d; // 1970-01-01 12:00
-constexpr double Y2K_JULIAN_DATE = 2451545.0d; // 2000-01-01 12:00
-constexpr double SOLAR_ANOMALY_AT_EPOCH = 357.5291092d;
-constexpr double SOLAR_ANOMALY_RATE = 35999.05029d;
-constexpr double SOLAR_ANOMALY_CORRECTION = -0.0001537d;
-constexpr double MEAN_LONGITUDE_SUN_AT_EPOCH = 280.46646d;
-constexpr double MEAN_LONGITUDE_SUN_RATE = 36000.76983d;
-constexpr double MEAN_LONGITUDE_SUN_CORRECTION = 0.0003032d;
-constexpr double APPARENT_LONGITUDE_CORRECTION_1 = 0.00569d;
-constexpr double APPARENT_LONGITUDE_CORRECTION_2 = 0.00478d;
-constexpr double OBLIQUITY_CORRECTION_FACTOR = 0.00256d;
-constexpr double MEAN_OBLIQUITY_AT_EPOCH = 23.439292d;
-constexpr double OBLIQUITY_RATE1 = 0.013004167d;
-constexpr double OBLIQUITY_RATE2 = 0.00000016389d;
-constexpr double OBLIQUITY_RATE3 = 0.0000005036d;
-constexpr double OMEGA_BASE_VALUE = 125.04d;
-constexpr double OMEGA_RATE = -1934.136d;
-constexpr double ECCENTRICITY_BASE = 0.016708634d;
-constexpr double ECCENTRICITY_COEFF1 = 0.000042037d;
-constexpr double ECCENTRICITY_COEFF2 = 0.0000001267d;
-constexpr double SOLAR_EQ_CENTER_COEFF1 = 1.914602d;
-constexpr double SOLAR_EQ_CENTER_COEFF2 = 0.004817d;
-constexpr double SOLAR_EQ_CENTER_COEFF3 = 0.000014d;
-constexpr double SOLAR_EQ_CENTER_COEFF4 = 0.019993d;
-constexpr double SOLAR_EQ_CENTER_COEFF5 = 0.000101d;
-constexpr double SOLAR_EQ_CENTER_COEFF6 = 0.000289d;
+constexpr double SECONDS_PER_HOUR = 3600.0;
+constexpr double MINUTES_PER_HOUR = 60.0;
+constexpr double SECONDS_PER_MINUTE = 60.0;
+constexpr double MINUTES_PER_DEGREE_LONGITUDE = 4.0; // 1 degree of Earth rotation per 4 Minutes
+constexpr double DEGREES_LONGITUDE_PER_HOUR = 15.0; // 15 degrees of Earth rotation per hour
+constexpr double UNIX_EPOCH_JD = 2440587.5; // 1970-01-01 00:00
+constexpr double Y2K_JULIAN_DATE = 2451545.0; // 2000-01-01 12:00
+constexpr double SOLAR_ANOMALY_AT_EPOCH = 357.5291092;
+constexpr double SOLAR_ANOMALY_RATE = 35999.05029;
+constexpr double SOLAR_ANOMALY_CORRECTION = 0.0001537;
+constexpr double MEAN_LONGITUDE_MOON_AT_EPOCH = 218.3165;
+constexpr double MEAN_LONGITUDE_MOON_RATE = 481267.8813;
+constexpr double MEAN_LONGITUDE_SUN_AT_EPOCH = 280.46646;
+constexpr double MEAN_LONGITUDE_SUN_RATE = 36000.76983;
+constexpr double MEAN_LONGITUDE_SUN_CORRECTION = 0.0003032;
+constexpr double APPARENT_LONGITUDE_CORRECTION_1 = 0.00569;
+constexpr double APPARENT_LONGITUDE_CORRECTION_2 = 0.00478;
+constexpr double OBLIQUITY_CORRECTION_FACTOR = 0.00256;
+constexpr double MEAN_OBLIQUITY_AT_EPOCH = 23.439292;
+constexpr double OBLIQUITY_RATE1 = 0.013004167;
+constexpr double OBLIQUITY_RATE2 = 0.00000016389;
+constexpr double OBLIQUITY_RATE3 = 0.0000005036;
+constexpr double OMEGA_BASE_VALUE = 125.04;
+constexpr double OMEGA_RATE = -1934.136;
+constexpr double ECCENTRICITY_BASE = 0.016708634;
+constexpr double ECCENTRICITY_COEFF1 = 0.000042037;
+constexpr double ECCENTRICITY_COEFF2 = 0.0000001267;
+constexpr double SOLAR_EQ_CENTER_COEFF1 = 1.914602;
+constexpr double SOLAR_EQ_CENTER_COEFF2 = 0.004817;
+constexpr double SOLAR_EQ_CENTER_COEFF3 = 0.000014;
+constexpr double SOLAR_EQ_CENTER_COEFF4 = 0.019993;
+constexpr double SOLAR_EQ_CENTER_COEFF5 = 0.000101;
+constexpr double SOLAR_EQ_CENTER_COEFF6 = 0.000289;
 
 // Convert degrees to radians by multiplying with π/180.
 double degToRad(double degrees) {
@@ -97,13 +99,13 @@ double normalizeRadians2Pi(double angle) {
 }
 
 // Convert a Unix timestamp to Julian Date.
-double calculateJulianDate(long timestamp_utc) {
+double calculateJulianDate(int64_t timestamp_utc) {
   return (double) timestamp_utc / (double) SECONDS_PER_DAY + UNIX_EPOCH_JD;
 }
 
 // Calculate Julian Century from a given UTC time, with 2000-01-01 noon as starting point.
-double calculateJulianCenturyNumber(long timestamp_utc) {
-  return (calculateJulianDate(timestamp_utc) - Y2K_JULIAN_DATE) / 36525.0d;
+double calculateJulianCenturyNumber(int64_t timestamp_utc) {
+  return (calculateJulianDate(timestamp_utc) - Y2K_JULIAN_DATE) / 36525.0;
 }
 
 // Earth's orbital eccentricity on a given Julian Century.
@@ -134,8 +136,7 @@ double calculateOmega(double julianCenturyNumber) {
 // Nutation in longitude for orbital corrections.
 double calculateNutation(double julianCenturyNumber) {
   double omega = calculateOmega(julianCenturyNumber);
-  double L_moon = OMEGA_BASE_VALUE + OMEGA_RATE * julianCenturyNumber;
-  L_moon = normalizeDegrees360(L_moon);
+  double L_moon = normalizeDegrees360(MEAN_LONGITUDE_MOON_AT_EPOCH + MEAN_LONGITUDE_MOON_RATE * julianCenturyNumber);
   double L_sun = calculateSunMeanLongitude(julianCenturyNumber);
   // apply nutation formula
   double deltaPsi = -17.20 * sin(degToRad(omega))
@@ -209,18 +210,19 @@ double calculateEquationOfTime(double julianCenturyNumber) {
 }
 
 // Convert UTC time to local solar time, considering longitude and equation of time.
-double calculateLocalSolarTime(long timestamp_utc, double equationOfTime, double longitude) {
-  long secondsOfTheDay = timestamp_utc % (int) SECONDS_PER_DAY; // type conversion necessary for modulo operation
-  double totalMinutes_utc = secondsOfTheDay / (double) SECONDS_PER_MINUTE;
+double calculateLocalSolarTime(int64_t timestamp_utc, double equationOfTime, double longitude) {
+  double secondsOfTheDay = fmod((double) timestamp_utc, SECONDS_PER_DAY);
+  if (secondsOfTheDay < 0.0) {
+    secondsOfTheDay += SECONDS_PER_DAY;
+  }
+  double totalMinutes_utc = secondsOfTheDay / SECONDS_PER_MINUTE;
   double timeOffset = longitude * MINUTES_PER_DEGREE_LONGITUDE;
   double localSolarTime = totalMinutes_utc + timeOffset + equationOfTime;
-  // normalize to [0, 1440) if the calculated time is negative or exceeds 24 hours (1440 minutes).
-  if (localSolarTime < 0) {
+  localSolarTime = fmod(localSolarTime, MINUTES_PER_DAY);
+  if (localSolarTime < 0.0) {
     localSolarTime += MINUTES_PER_DAY;
-  } else if (localSolarTime >= MINUTES_PER_DAY) {
-    localSolarTime -= MINUTES_PER_DAY;
   }
-  return localSolarTime / SECONDS_PER_MINUTE;
+  return localSolarTime / MINUTES_PER_HOUR;
 }
 
 // Local solar noon based on longitude and equation of time.
@@ -238,7 +240,7 @@ double calculateHourAngle(double localSolarTime) {
 double calculateSunriseHourAngle(double declination, double latitude) {
   double latitude_rad = degToRad(latitude);
   double declination_rad = degToRad(declination);
-  double cosH0 = (-SOLAR_ANGULAR_DIAMETER_RAD - sin(latitude_rad) * sin(declination_rad)) / (cos(latitude_rad) * cos(declination_rad));
+  double cosH0 = (-SOLAR_HORIZON_OFFSET_RAD - sin(latitude_rad) * sin(declination_rad)) / (cos(latitude_rad) * cos(declination_rad));
   double h0;
   // limit h0 to -180 or 0 degrees in cases the sun never sets or rises
   if (cosH0 <= -1.0) {
@@ -276,7 +278,7 @@ double calculateDaylightMinutes(double sunriseSunsetHourAngle) {
   } else if (angle <= 0.0) {
     daylightMinutes = 0;  // polar night
   } else {
-    daylightMinutes = 2 * MINUTES_PER_HOUR * abs(sunriseSunsetHourAngle) / DEGREES_LONGITUDE_PER_HOUR;
+    daylightMinutes = 2 * MINUTES_PER_HOUR * angle / DEGREES_LONGITUDE_PER_HOUR;
   }
   return daylightMinutes;
 }
@@ -358,11 +360,12 @@ double calculateApproximateAtmosphericRefraction(double elevation) {
   if (elevation > 85.0) {
     refraction = 0.0;
   } else if (elevation > 5.0) {
-    refraction = 58.1d / tan(elevation_rad) - 0.07d / pow(tan(elevation_rad), 3) + 0.000086d / pow(tan(elevation_rad), 5);
-  } else if (elevation > -0.575d) {
-    refraction = 1735.0d + elevation * (-518.2d + elevation * (103.4d + elevation * (-12.79d + elevation * 0.711d)));
+    refraction = 58.1 / tan(elevation_rad) - 0.07 / pow(tan(elevation_rad), 3) + 0.000086 / pow(tan(elevation_rad), 5);
+  } else if (elevation > -0.575) {
+    refraction = 1735.0 + elevation * (-518.2 + elevation * (103.4 + elevation * (-12.79 + elevation * 0.711)));
   } else {
-    refraction = -20.772d / tan(elevation_rad);
+    refraction = -20.772 / tan(elevation_rad);
   }
-  return refraction /= 3600.0;  // arc seconds to degrees
+  refraction /= 3600.0;  // arc seconds to degrees
+  return refraction;
 }
